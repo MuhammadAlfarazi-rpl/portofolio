@@ -85,6 +85,8 @@ function startTextAnimations() {
   }, 100);
 }
 
+
+// == Fungsi Typing ==
 function typingEffectWithPauses(selector, baseDelay = 40, pauseExtra = 300) {
   const target = document.querySelector(selector);
   if (!target) return;

@@ -2,7 +2,7 @@
 <?php include 'includes/header.php'; ?>
 <div class="container-xxl mt-5 fade-up-init">
   <div class="d-flex flex-wrap align-items-center justify-content-between custom-hero p-2">
-    
+
     <!-- Teks -->
     <div class="text-block pe-5 mb-2">
       <div class="hero-card card">
