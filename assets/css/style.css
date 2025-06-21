@@ -1,3 +1,8 @@
+.navbar {
+  background: #f6f6f63f !important;
+   backdrop-filter: blur(7px);  
+}
+
 .custom-navbar {
   position: fixed;
   top: 20px;
@@ -10,11 +15,6 @@
   padding: 0.75rem 1.5rem;
   border: 1px solid black;
   border-radius: 12px;
-
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -45,6 +45,7 @@ body {
   gap: 2rem;
   justify-content: space-between;
   align-items: center;
+  margin-top: 120px;
 }
 
 .text-block {
