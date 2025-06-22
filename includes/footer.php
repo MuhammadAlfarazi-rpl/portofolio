@@ -6,6 +6,9 @@
 <!-- Anime.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
+<!-- Vanila Tilt -->
+<script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+
 <!-- Font Awesome -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js" defer></script>
 
@@ -88,39 +91,42 @@ function startTextAnimations() {
 
 // == Fungsi Typing ==
 function typingEffectWithPauses(selector, baseDelay = 40, pauseExtra = 300) {
-  const target = document.querySelector(selector);
-  if (!target) return;
+  const container = document.querySelector(selector);
+  if (!container) return;
 
-  const text = target.textContent.trim();
-  target.innerHTML = '';
-  target.style.opacity = 1;
-  target.style.visibility = 'visible';
+  // Ambil semua <p> di dalam .description-text-blowup
+  const paragraphs = Array.from(container.querySelectorAll('p'));
+  container.innerHTML = ''; // clear container
+  container.style.opacity = 1;
+  container.style.visibility = 'visible';
 
-  const spans = [];
-  text.split('').forEach(char => {
-    const span = document.createElement('span');
-    span.textContent = char === ' ' ? '\u00A0' : char;
-    span.classList.add('letter');
-    target.appendChild(span);
-    spans.push(span);
-  });
+  let totalDelay = 0;
 
-  let currentDelay = 0;
-  const delayMap = spans.map((span) => {
-    const isPauseChar = /[.,]/.test(span.textContent);
-    const thisDelay = currentDelay;
-    currentDelay += baseDelay + (isPauseChar ? pauseExtra : 0);
-    return thisDelay;
-  });
+  paragraphs.forEach((para, index) => {
+    const text = para.textContent.trim();
+    const p = document.createElement('p');
+    container.appendChild(p);
 
-  anime({
-    targets: spans,
-    opacity: [0, 1],
-    duration: 1,
-    delay: (el, i) => delayMap[i],
-    easing: 'linear'
+    text.split('').forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.classList.add('letter');
+      p.appendChild(span);
+    });
+
+    const spans = p.querySelectorAll('.letter');
+    anime({
+      targets: spans,
+      opacity: [0, 1],
+      duration: 1,
+      delay: (el, i) => totalDelay + (i * baseDelay) + (/[.,]/.test(el.textContent) ? pauseExtra : 0),
+      easing: 'linear'
+    });
+
+    totalDelay += spans.length * baseDelay + pauseExtra;
   });
 }
+
 
 // === Grain Ink Splash ===
 const canvas = document.getElementById('grain-canvas');
@@ -135,6 +141,9 @@ window.addEventListener('resize', () => {
   height = canvas.height = window.innerHeight;
 });
 
+const palette = ['#ff6b6b', '#feca57', '#54a0ff', '#5f27cd', '#00d2d3', '#1dd1a1', '#ff9ff3'];
+
+
 document.addEventListener('mousemove', e => {
   for (let i = 0; i < 3; i++) {
     particles.push({
@@ -143,10 +152,12 @@ document.addEventListener('mousemove', e => {
       vx: (Math.random() - 0.5) * 2,
       vy: (Math.random() - 0.5) * 2,
       alpha: 1,
-      radius: Math.random() * 1.5 + 0.5
+      radius: Math.random() * 1.5 + 0.5,
+      color: palette[Math.floor(Math.random() * palette.length)] 
     });
   }
 });
+
 
 function animateParticles() {
   ctx.clearRect(0, 0, width, height);
@@ -159,7 +170,7 @@ function animateParticles() {
 
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(0, 0, 0, ${p.alpha})`;
+    ctx.fillStyle = hexToRgba(p.color, p.alpha);
     ctx.fill();
 
     if (p.alpha <= 0) {
@@ -170,6 +181,23 @@ function animateParticles() {
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
+
+function hexToRgba(hex, alpha) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// == Tilt ==
+  VanillaTilt.init(document.querySelectorAll(".hero-card"), {
+    max: 2,
+    speed: 100,
+    glare: true,
+    "max-glare": 0.2,
+    scale: 1.02,
+    easing: "cubic-bezier(.03,.98,.52,.99)"
+  });
 </script>
 </body>
 </html>
