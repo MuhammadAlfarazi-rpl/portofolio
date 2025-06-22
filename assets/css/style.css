@@ -27,14 +27,16 @@
 }
 
 body {
-  background-color: #fbfbfa;
-  background-repeat: repeat;
-  background-size: auto;
-  font-family: 'Outfit', sans-serif;
-  position: relative;
-  overflow-x: hidden;
+  background: linear-gradient(-45deg, #efefef, #f8f8f8, #dcdcdc, #f8f8f8);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
 }
 
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
 .card-photo {
   width: 75% !important;
