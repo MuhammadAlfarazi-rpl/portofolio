@@ -18,5 +18,4 @@
 
 </head>
 <body>
-  <canvas id="grain-canvas"></canvas>
  <?php include 'navbar.php'; ?> 

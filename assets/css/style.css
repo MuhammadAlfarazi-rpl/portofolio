@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'Kollektif';
+  src: url('../fonts/Kollektif.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kollektif';
+  src: url('../fonts/Kollektif-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kollektif';
+  src: url('../fonts/Kollektif-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Kollektif';
+  src: url('../fonts/Kollektif-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+body {
+  font-family: 'Kollektif', sans-serif;
+  background: #fdfdfd;
+}
+
+.navbar {
+  background: #fdfdfd !important;
+}
+
+.nav-link {
+  display: inline-block;
+  color: #888; 
+  font-weight: normal;
+  font-size: 0.9rem;
+  transform: scale(1);
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-link.selected {
+  color: #000; 
+  font-weight: bold;
+  transform: scale(1.2);
+}
+
+h1, h5, p {
+  margin-bottom: 10px;
+}
+
+.sphere-animation svg {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .sphere-animation {
+    margin-top: 30px;
+  }
+}
+
+.fade-up-init {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s ease-out;
+}
+
+.fade-up-show {
+  opacity: 1;
+  transform: translateY(0);
+}
