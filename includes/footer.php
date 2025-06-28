@@ -9,6 +9,7 @@
 <!-- Three.js -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
+
 <!-- Vanila Tilt -->
 <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
 
@@ -119,10 +120,67 @@ var sphereAnimation = (function() {
 
 })();
 
-// Fade in
+// == Fade in ==
 window.addEventListener('load', () => {
     document.querySelector('.fade-up-init').classList.add('fade-up-show');
   });
+
+// == Typing Effect ==
+function typingEffectStrong(selector, baseDelay = 100, pauseExtra = 700) {
+  const container = document.querySelector(selector);
+  if (!container) return;
+
+  const heading = container.querySelector('h1');
+  if (!heading) return;
+
+  const originalHTML = heading.innerHTML;
+  container.innerHTML = ''; // clear container
+
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = originalHTML;
+
+  let totalDelay = 0;
+  const h1 = document.createElement('h1');
+  container.appendChild(h1);
+
+  function processNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.classList.add('letter');
+        h1.appendChild(span);
+      });
+    } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'STRONG') {
+      const strong = document.createElement('strong');
+      h1.appendChild(strong);
+      node.textContent.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char === ' ' ? '\u00A0' : char;
+        span.classList.add('letter');
+        strong.appendChild(span);
+      });
+    }
+  }
+
+  tempDiv.childNodes.forEach(processNode);
+
+  const spans = h1.querySelectorAll('.letter');
+
+  anime({
+    targets: spans,
+    opacity: [0, 1],
+    translateY: ['-10px', '0px'],
+    duration: 300,
+    delay: (el, i) => totalDelay + (i * baseDelay) + (/[.,]/.test(el.textContent) ? pauseExtra : 0),
+    easing: 'easeOutExpo'
+  });
+}
+
+setTimeout(() => {
+  typingEffectStrong('.description-text-blowup', 100, 700);
+}, 1000);
+
 </script>
 
 
