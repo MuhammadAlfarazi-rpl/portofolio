@@ -5,13 +5,15 @@
   <div class="d-flex align-items-center justify-content-between flex-wrap">
     <div class="text">
       <h5>Hi! Saya,</h5>
-      <h1><strong>Muhammad Alfarazi Abdalla Huda</strong></h1>
+      <div class="description-text-blowup">
+        <h1 class="ilang"><strong>Muhammad Alfarazi Abdalla Huda</strong></h1>
+      </div>
       <p>"Almost" - FullStack Dev</p>
-      <p>Back-end, Front-end, Databases.<br>Selalu penasaran dan mencari tahu.</p>
+      <p >Back-end, Front-end, Databases.<br>Curiousity with passion.</p>
     </div>
     <div class="animation-wrapper">
   <div class="sphere-animation">
-    <svg class="sphere" viewBox="0 0 440 440" stroke="rgba(212, 212, 212, 0.35)">
+    <svg class="sphere" viewBox="0 0 440 440" stroke="rgba(80,80,80,.35)">
       <defs>
         <linearGradient id="sphereGradient" x1="5%" x2="5%" y1="0%" y2="15%">
           <stop stop-color="#373734" offset="0%"/>
